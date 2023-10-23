@@ -18,21 +18,21 @@ const Home = () => {
             </div>
             {/* section 1 */}
             <div className='flex flex-col justify-center p-8 bg-amber-200'>
-                <div className='p-8'>
-                    <p className='text-gray-700 text-2xl text-center underline'>For your Dining and catering needs...</p>
+                <div className='p-8 pb-10'>
+                    <p className='text-gray-700 text-md lg:text-2xl md:text-3xl text-center underline'>For your Dining and catering needs...</p>
                 </div>
-                <div className='flex flex-row justify-center space-x-6 p-4 pb-10'>
-                    <img className='h-80 rounded-lg border-black' src={Meat} alt="meat" />
-                    <img className='h-80 rounded-lg border-black' src={Catering} alt="catering" />
-                    <img className='h-80 rounded-lg border-black' src={RicePlate} alt="riceplate" />
+                <div className='flex flex-row justify-center p-4 pb-10 flex-wrap'>
+                    <img className='h-80 rounded-lg border-black m-4' src={Meat} alt="meat" />
+                    <img className='h-80 rounded-lg border-black m-4' src={Catering} alt="catering" />
+                    <img className='h-80 rounded-lg border-black m-4' src={RicePlate} alt="riceplate" />
                 </div>
             </div>
             {/* section 2 */}
             <div className='flex flex-col p-6 pt-12 bg-sky-50'>
                 <div className='my-4'>
-                    <p className='underline text-2xl text-center'>Hours of service and Location</p>
+                    <p className='underline text-md lg:text-2xl md:text-3xl text-center'>Hours of service and Location</p>
                 </div>
-                <div className='flex flex-row items-center justify-center p-4 pt-12'>
+                <div className='flex flex-row flex-wrap items-center justify-center p-4 pt-12'>
                     <div className='flex flex-col items-center p-4'>
                         <p>Wednesday-Saturday - 12pm to 9:30pm</p>
                         <p>Sunday - 12pm to 6:30pm</p>
