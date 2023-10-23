@@ -25,7 +25,7 @@ const Nav = () => {
         },
     };
     return (
-        <nav className='fixed w-full z-30'>
+        <nav className='fixed w-full z-30 font-serif'>
             <ul className='flex bg-black text-white p-4 items-center justify-between'>
                 <div className='flex items-center'>
                     <Link className='flex items-center mx-1' to={'/'}>
