@@ -33,7 +33,7 @@ const Home = () => {
                     <p className='underline text-md lg:text-2xl md:text-3xl text-center'>Hours of service and Location</p>
                 </div>
                 <div className='flex flex-row flex-wrap items-center justify-center p-4 pt-12'>
-                    <div className='flex flex-col items-center p-4'>
+                    <div className='flex flex-col items-center justify-center p-4'>
                         <p>Wednesday-Saturday - 12pm to 9:30pm</p>
                         <p>Sunday - 12pm to 6:30pm</p>
                     </div>
