@@ -6,12 +6,13 @@ const Menu = () => {
         <div className="pt-14 font-serif bg-lime-100">
             <div className="bg-amber-200 p-4 py-10">
                 <p className="text-md font-bold lg:text-3xl text-center my-4">Menu</p>
-                <p className="text-center lg:text-sm my-2">explore our creations...</p>
+                <p className="text-center text-sm lg:text-sm my-2">explore our creations...</p>
             </div>
             <div className="flex flex-col text-center py-4">
-                <div className="p-4">
+                <div className="p-6">
                     <p className="font-bold lg:text-2xl">Roti</p>
                 </div>
+                
                 <div className="m-2">
                     <div>
                         <p className="underline">Boneless Chicken Roti</p>
@@ -66,7 +67,7 @@ const Menu = () => {
                 <hr className="border-t-2 border-gray-600 flex-grow" />
             </div>
             <div className="flex flex-col text-center">
-                <div className="p-4 lg:text-2xl" >
+                <div className="p-6 lg:text-2xl" >
                     <p className="font-bold">Chefs Creations</p>
                 </div>
                 <div className="m-2">
@@ -138,7 +139,7 @@ const Menu = () => {
             </div>
             <div className="flex flex-col text-center">
                 <div >
-                    <p className="font-bold lg:text-2xl p-4">Starter</p>
+                    <p className="font-bold lg:text-2xl p-6">Starter</p>
                 </div>
                 <div className="m-2">
                     <div>
@@ -184,7 +185,7 @@ const Menu = () => {
             </div>
             <div className="flex flex-col text-center">
                 <div >
-                    <p className="font-bold lg:text-2xl p-4">Bar Bites</p>
+                    <p className="font-bold lg:text-2xl p-6">Bar Bites</p>
                 </div>
                 <div className="m-2">
                     <div>
@@ -240,7 +241,7 @@ const Menu = () => {
             </div>
             <div className="flex flex-col text-center pb-4">
                 <div>
-                    <p className="font-bold lg:text-2xl p-4">From the grill</p>
+                    <p className="font-bold lg:text-2xl p-6">From the grill</p>
                 </div>
                 <div className="m-2">
                     <div>
