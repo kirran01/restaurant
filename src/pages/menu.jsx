@@ -9,11 +9,56 @@ const Menu = () => {
                 <p className="text-center text-sm lg:text-sm my-2">explore our creations...</p>
             </div>
             <div className="flex flex-col text-center py-4">
-                <div className="p-6">
-                    <p className="font-bold lg:text-2xl">Roti</p>
+                <div className="flex flex-col text-center">
+                    <div >
+                        <p className="font-bold lg:text-2xl p-6">Starter</p>
+                    </div>
+                    <div className="m-2">
+                        <div>
+                            <p className="underline">Ginger pumpkin soup</p>
+                        </div>
+                        <div>
+                            <p>$20</p>
+                        </div>
+                    </div>
+                    <div className="m-2">
+                        <div>
+                            <p className="underline">Calallo Soup</p>
+                        </div>
+                        <div>
+                            <p>serves with side of mixed green salad</p>
+                            <p>$20</p>
+                        </div>
+                    </div>
+                    <div className="m-2">
+                        <div>
+                            <p className="underline">House Salad</p>
+                        </div>
+                        <div>
+                            <p>$20</p>
+                        </div>
+                    </div>
+                    <div className="m-2">
+                        <div>
+                            <p className="underline">Indian spice infused salt fish fritters</p>
+                        </div>
+                        <div>
+                            <p>with tamarind dipping sauce</p>
+                            <p>$25</p>
+                        </div>
+                    </div>
                 </div>
-                
+                <div className="flex items-center justify-center my-4">
+                    <hr className="border-t-2 border-gray-600 flex-grow" />
+                    <span className="mx-4">
+                        <i className="fas fa-star text-yellow-500"></i>
+                    </span>
+                    <hr className="border-t-2 border-gray-600 flex-grow" />
+                </div>
                 <div className="m-2">
+                    <div className="p-6">
+                        <p className="font-bold lg:text-2xl">Roti</p>
+                    </div>
                     <div>
                         <p className="underline">Boneless Chicken Roti</p>
                     </div>
@@ -127,52 +172,6 @@ const Menu = () => {
                 <div className="m-2">
                     <div>
                         <p className="underline">Additional Sides are served at a cost of $7 each</p>
-                    </div>
-                </div>
-            </div>
-            <div className="flex items-center justify-center my-4">
-                <hr className="border-t-2 border-gray-600 flex-grow" />
-                <span className="mx-4">
-                    <i className="fas fa-star text-yellow-500"></i>
-                </span>
-                <hr className="border-t-2 border-gray-600 flex-grow" />
-            </div>
-            <div className="flex flex-col text-center">
-                <div >
-                    <p className="font-bold lg:text-2xl p-6">Starter</p>
-                </div>
-                <div className="m-2">
-                    <div>
-                        <p className="underline">Ginger pumpkin soup</p>
-                    </div>
-                    <div>
-                        <p>$20</p>
-                    </div>
-                </div>
-                <div className="m-2">
-                    <div>
-                        <p className="underline">Calallo Soup</p>
-                    </div>
-                    <div>
-                        <p>serves with side of mixed green salad</p>
-                        <p>$20</p>
-                    </div>
-                </div>
-                <div className="m-2">
-                    <div>
-                        <p className="underline">House Salad</p>
-                    </div>
-                    <div>
-                        <p>$20</p>
-                    </div>
-                </div>
-                <div className="m-2">
-                    <div>
-                        <p className="underline">Indian spice infused salt fish fritters</p>
-                    </div>
-                    <div>
-                        <p>with tamarind dipping sauce</p>
-                        <p>$25</p>
                     </div>
                 </div>
             </div>
