@@ -1,8 +1,32 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Modal from 'react-modal';
 
 const Events = () => {
     const [events, setEvents] = useState([])
+    const [modalIsOpen, setIsOpen] = useState(false);
+    function openModal() {
+        setIsOpen(true);
+        console.log('bang')
+    }
+    function closeModal() {
+        setIsOpen(false);
+    }
+    const customStyles = {
+        content: {
+            borderRadius: '10px',
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
+        },
+    };
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+    }
     const getEvents = async () => {
         try {
             const res = await axios.get(`http://localhost:3000/events/get-events`, {
@@ -20,20 +44,50 @@ const Events = () => {
     }
     useEffect(() => {
         getEvents()
-    }, [])
-    console.log(events, "ev")
+    }, [events])
+    //j.a
     return (
-        <div className="pt-14 font-serif">
+        <div className="pt-14 font-serif bg-orange-100">
             <div className="bg-rose-200 p-4 py-10">
                 <p className="text-md font-bold lg:text-3xl text-center my-4">Events</p>
                 <p className="text-center text-sm lg:text-sm my-2">Join us for some great times and even better food...</p>
+                <p className="text-center" type="" onClick={openModal}>New</p>
             </div>
+            <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                style={customStyles}
+            >
+                <div className="flex font-serif flex-col items-center">
+                    <div>
+                        <p className="text-lg">Create an Event</p>
+                    </div>
+                    <form className="flex flex-col items-center" action="" onSubmit>
+                        <div className="flex flex-col items-center m-2">
+                            <label>Title</label>
+                            <input className="border-2" type="text" />
+                        </div>
+                        <div className="flex flex-col items-center m-2">
+                            <label>Date</label>
+                            <input className="border-2" type="date" />
+                        </div>
+                        <div className="flex flex-col items-center m-2">
+                            <label>Summary</label>
+                            <textarea className="border-2" type="text" />
+                        </div>
+                        <button className="border-2 p-2 m-2">Submit</button>
+                    </form>
+                </div>
+            </Modal>
             <div>
                 <div>
                     {events.map(e => {
                         return (<>
-                            <p>{e.title}</p>
-                            <p>{e.description}</p>
+                            <div className="border-2 border-sky-400 rounded-lg m-10 p-10 flex flex-col items-center">
+                                <p className="text-lg font-bold p-2">{e.title}</p>
+                                <p className="p-2">{formatDate(e.day)}</p>
+                                <p className="p-2">{e.description}</p>
+                            </div>
                         </>)
                     })}
                 </div>

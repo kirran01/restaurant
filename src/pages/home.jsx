@@ -5,6 +5,7 @@ import Footer from '../components/footer'
 import RicePlate from '../../public/img/riceplate.jpg'
 import view from '../../public/img/gren.jpeg';
 const Home = () => {
+    
     return (
         <div className="flex flex-col pt-14 font-serif">
             {/* main */}
