@@ -7,7 +7,8 @@ const Events = () => {
     const [modalIsOpen, setIsOpen] = useState(false);
     const [eventInput, setEventInput] = useState({
         title: '',
-        description: ''
+        description: '',
+        day:''
     })
     const handleEventInput = (e) => {
         setEventInput({ ...eventInput, [e.target.name]: e.target.value })
@@ -17,7 +18,8 @@ const Events = () => {
         try {
             const res = await axios.post(`http://localhost:3000/events/create-event`, {
                 title: eventInput.title,
-                description: eventInput.description
+                description: eventInput.description,
+                day:eventInput.day
             },
                 {
                     headers: {
@@ -99,7 +101,7 @@ const Events = () => {
                         </div>
                         <div className="flex flex-col items-center m-2">
                             <label>Date</label>
-                            <input className="border-2" type="date" />
+                            <input className="border-2" onChange={handleEventInput} value={eventInput.day} name="day" type="date" />
                         </div>
                         <div className="flex flex-col items-center m-2">
                             <label>Summary</label>
