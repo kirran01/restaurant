@@ -5,9 +5,39 @@ import Modal from 'react-modal';
 const Events = () => {
     const [events, setEvents] = useState([])
     const [modalIsOpen, setIsOpen] = useState(false);
+    const [eventInput, setEventInput] = useState({
+        title: '',
+        description: ''
+    })
+    const handleEventInput = (e) => {
+        setEventInput({ ...eventInput, [e.target.name]: e.target.value })
+    }
+    const submitEvent = async (e) => {
+        e.preventDefault()
+        try {
+            const res = await axios.post(`http://localhost:3000/events/create-event`, {
+                title: eventInput.title,
+                description: eventInput.description
+            },
+                {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem('authToken')}`
+                    }
+                })
+            if (res) {
+                console.log(res.data, 'rd')
+                closeModal()
+                setEventInput({
+                    title: '',
+                    description: ''
+                })
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
     function openModal() {
         setIsOpen(true);
-        console.log('bang')
     }
     function closeModal() {
         setIsOpen(false);
@@ -62,10 +92,10 @@ const Events = () => {
                     <div>
                         <p className="text-lg">Create an Event</p>
                     </div>
-                    <form className="flex flex-col items-center" action="" onSubmit>
+                    <form className="flex flex-col items-center" action="" onSubmit={submitEvent}>
                         <div className="flex flex-col items-center m-2">
                             <label>Title</label>
-                            <input className="border-2" type="text" />
+                            <input onChange={handleEventInput} value={eventInput.title} className="border-2" name={"title"} type="text" />
                         </div>
                         <div className="flex flex-col items-center m-2">
                             <label>Date</label>
@@ -73,7 +103,7 @@ const Events = () => {
                         </div>
                         <div className="flex flex-col items-center m-2">
                             <label>Summary</label>
-                            <textarea className="border-2" type="text" />
+                            <textarea onChange={handleEventInput} value={eventInput.description} className="border-2" name={"description"} type="text" />
                         </div>
                         <button className="border-2 p-2 m-2">Submit</button>
                     </form>
