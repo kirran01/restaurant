@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom'
 
 const Nav = () => {
-    const { user, isLoggedIn, logOut } = useContext(AuthContext);
+    const {user, isLoggedIn, logOut } = useContext(AuthContext);
     const [modalIsOpen, setIsOpen] = useState(false);
     function openModal() {
         setIsOpen(true);
@@ -38,16 +38,20 @@ const Nav = () => {
                         <MenuIcon />
                     </li>
                 </div>
-                <li onClick={logOut} className='text-white cursor-pointer'>
-                    Log Out
-                </li>
+
                 <div className='hidden lg:flex md:flex'>
+
                     <Link className='mx-2' to={'/menu'}>
                         Menu
                     </Link>
                     <Link className='mx-2' to={'/events'}>
                         Events
                     </Link>
+                    {isLoggedIn &&
+                        <li onClick={logOut} className='text-white cursor-pointer'>
+                            Log Out
+                        </li>
+                    }
                     <Modal
                         isOpen={modalIsOpen}
                         onRequestClose={closeModal}

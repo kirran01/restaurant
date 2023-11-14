@@ -1,14 +1,19 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { AuthContext } from '../context/auth.context';
+import { useContext } from 'react';
 import Modal from 'react-modal';
+import Post from '../components/post'
 
 const Events = () => {
+    const [error, setError] = useState(false)
     const [events, setEvents] = useState([])
     const [modalIsOpen, setIsOpen] = useState(false);
+    const { user, isLoggedIn, logOut } = useContext(AuthContext);
     const [eventInput, setEventInput] = useState({
         title: '',
         description: '',
-        day:''
+        day: ''
     })
     const handleEventInput = (e) => {
         setEventInput({ ...eventInput, [e.target.name]: e.target.value })
@@ -19,19 +24,21 @@ const Events = () => {
             const res = await axios.post(`http://localhost:3000/events/create-event`, {
                 title: eventInput.title,
                 description: eventInput.description,
-                day:eventInput.day
+                day: eventInput.day
             },
                 {
                     headers: {
                         authorization: `Bearer ${localStorage.getItem('authToken')}`
                     }
                 })
-            if (res) {
-                console.log(res.data, 'rd')
+            if (res.data.errors) {
+                setError(true)
+            } else {
                 closeModal()
                 setEventInput({
                     title: '',
-                    description: ''
+                    description: '',
+                    day: ''
                 })
             }
         } catch (err) {
@@ -80,10 +87,12 @@ const Events = () => {
     //j.a
     return (
         <div className="pt-14 font-serif bg-orange-100">
-            <div className="bg-rose-200 p-4 py-10">
+            <div className="bg-rose-200 p-4 py-10 flex flex-col items-center">
                 <p className="text-md font-bold lg:text-3xl text-center my-4">Events</p>
                 <p className="text-center text-sm lg:text-sm my-2">Join us for some great times and even better food...</p>
-                <p className="text-center" type="" onClick={openModal}>New</p>
+                {isLoggedIn &&
+                    <button className="text-center bg-black hover:bg-slate-800 text-white p-2 m-2 mt-4 rounded-lg" type="" onClick={openModal}>New</button>
+                }
             </div>
             <Modal
                 isOpen={modalIsOpen}
@@ -92,7 +101,9 @@ const Events = () => {
             >
                 <div className="flex font-serif flex-col items-center">
                     <div>
+                        {/* conditionally render either of these */}
                         <p className="text-lg">Create an Event</p>
+                        <p className="text-lg">Field(s) are missing</p>
                     </div>
                     <form className="flex flex-col items-center" action="" onSubmit={submitEvent}>
                         <div className="flex flex-col items-center m-2">
@@ -115,11 +126,7 @@ const Events = () => {
                 <div>
                     {events.map(e => {
                         return (<>
-                            <div className="border-2 border-sky-400 rounded-lg m-10 p-10 flex flex-col items-center">
-                                <p className="text-lg font-bold p-2">{e.title}</p>
-                                <p className="p-2">{formatDate(e.day)}</p>
-                                <p className="p-2">{e.description}</p>
-                            </div>
+                            <Post key={e.id} post={e} />
                         </>)
                     })}
                 </div>
