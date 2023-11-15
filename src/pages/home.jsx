@@ -8,7 +8,6 @@ const Home = () => {
     
     return (
         <div className="flex flex-col pt-14 font-serif">
-            {/* main */}
             <div className="w-full bg-cover bg-center h-96 bg-view">
                 <div className="flex items-center justify-center h-full w-full bg-gray-900 bg-opacity-60">
                     <div className="text-center">
@@ -17,7 +16,6 @@ const Home = () => {
                     </div>
                 </div>
             </div>
-            {/* section 1 */}
             <div className='flex flex-col justify-center p-8 bg-amber-200'>
                 <div className='p-8 pb-10'>
                     <p className='text-gray-700 text-md lg:text-2xl md:text-3xl text-center underline'>For your Dining and catering needs...</p>
@@ -28,7 +26,6 @@ const Home = () => {
                     <img className='h-80 rounded-lg border-black m-4' src={RicePlate} alt="riceplate" />
                 </div>
             </div>
-            {/* section 2 */}
             <div className='flex flex-col p-6 pt-12 bg-sky-50'>
                 <div className='my-4'>
                     <p className='underline text-md lg:text-2xl md:text-3xl text-center'>Hours of service and Location</p>
