@@ -4,6 +4,7 @@ import { AuthContext } from '../context/auth.context';
 import { useContext } from 'react';
 import Modal from 'react-modal';
 import Post from '../components/post'
+import moment from 'moment';
 
 const Events = () => {
     const [error, setError] = useState(false)
@@ -21,10 +22,17 @@ const Events = () => {
     const submitEvent = async (e) => {
         e.preventDefault()
         try {
+            const date = new Date(eventInput.day);
+
+            // Add one day
+            date.setDate(date.getDate() + 1);
+
+            // Format the date back to 'YYYY-MM-DD'
+            const adjustedDate = date.toISOString().split('T')[0];
             const res = await axios.post(`http://localhost:3000/events/create-event`, {
                 title: eventInput.title,
                 description: eventInput.description,
-                day: eventInput.day
+                day: adjustedDate
             },
                 {
                     headers: {
@@ -35,8 +43,6 @@ const Events = () => {
                 setError(true)
             } else {
                 const newEvent = res.data;
-
-                // Update the events state
                 setEvents(prevEvents => [...prevEvents, newEvent]);
                 closeModal()
                 setEventInput({
@@ -54,6 +60,11 @@ const Events = () => {
     }
     function closeModal() {
         setIsOpen(false);
+        setError(false)
+        setEventInput({
+            title: '',
+            description: ''
+        })
     }
     const customStyles = {
         content: {
@@ -79,9 +90,8 @@ const Events = () => {
             })
             if (res) {
                 const gotEvents = res.data
+                console.log(res.data, 'events')
                 setEvents(gotEvents)
-                console.log(res.data, 'rd')
-
             }
         } catch (err) {
             console.log(err)

@@ -55,11 +55,34 @@ const Post = ({ post, events, setEvents }) => {
     const editPost = async (e) => {
         e.preventDefault()
         try {
+            const date = new Date(postInput.day);
+
+            // Add one day
+            date.setDate(date.getDate() + 1);
+
+            // Format the date back to 'YYYY-MM-DD'
+            const adjustedDate = date.toISOString().split('T')[0];
             const res = await axios.put(`http://localhost:3000/events/update-event/${post._id}`, {
+                title: postInput.title,
+                description: postInput.description,
+                day: adjustedDate
+            }, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('authToken')}`
                 }
             })
+            if (res) {
+                console.log(res.data, 'rd')
+                const updatedEvent = res.data
+                const updatedEvents = events.map(event => {
+                    if (event._id === post._id) {
+                        return updatedEvent;
+                    }
+                    return event;
+                });
+                setEvents(updatedEvents)
+                closeModal()
+            }
         } catch (err) {
             console.log(err)
         }
@@ -81,7 +104,7 @@ const Post = ({ post, events, setEvents }) => {
                 style={customStyles}
             >
                 <div>
-                <form className="flex flex-col items-center" action="" onSubmit={editPost}>
+                    <form className="flex flex-col items-center" action="" onSubmit={editPost}>
                         <div className="flex flex-col items-center m-2">
                             <label>Title</label>
                             <input onChange={handlePostInput} value={postInput.title} className="border-2" name={"title"} type="text" />
