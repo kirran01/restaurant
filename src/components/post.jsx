@@ -56,11 +56,7 @@ const Post = ({ post, events, setEvents }) => {
         e.preventDefault()
         try {
             const date = new Date(postInput.day);
-
-            // Add one day
             date.setDate(date.getDate() + 1);
-
-            // Format the date back to 'YYYY-MM-DD'
             const adjustedDate = date.toISOString().split('T')[0];
             const res = await axios.put(`http://localhost:3000/events/update-event/${post._id}`, {
                 title: postInput.title,
@@ -72,7 +68,6 @@ const Post = ({ post, events, setEvents }) => {
                 }
             })
             if (res) {
-                console.log(res.data, 'rd')
                 const updatedEvent = res.data
                 const updatedEvents = events.map(event => {
                     if (event._id === post._id) {
@@ -90,7 +85,7 @@ const Post = ({ post, events, setEvents }) => {
     return (
         <div>
             <div className="border-2 border-sky-400 rounded-lg m-10 p-10 pt-5 flex flex-col">
-                {isLoggedIn && <div className="flex justify-start items-start">
+                {isLoggedIn && <div className="flex items-center justify-center md:justify-start lg:justify-start md:items-start lg:items-start">
                     <button className="mx-2 p-2 text-sm border-2 rounded-lg" onClick={openModal}>Edit</button>
                     <button className="mx-2 p-2 text-sm border-2 rounded-lg" onClick={deletePost}>Delete</button>
                 </div>}

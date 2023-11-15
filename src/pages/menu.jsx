@@ -5,7 +5,7 @@ const Menu = () => {
     return (
         <div className="pt-14 font-serif bg-lime-100">
             <div className="bg-amber-200 p-4 py-10">
-                <p className="text-md font-bold lg:text-3xl text-center my-4">Menu</p>
+                <p className="text-lg font-bold lg:text-3xl md:text-3xl text-center my-4">Menu</p>
                 <p className="text-center text-sm lg:text-sm my-2">explore our creations...</p>
             </div>
             <div className="flex flex-col text-center py-4">
@@ -171,7 +171,7 @@ const Menu = () => {
                 </div>
                 <div className="m-2">
                     <div>
-                        <p className="underline">Additional Sides are served at a cost of $7 each</p>
+                        <p className="italic">Additional Sides are served at a cost of $7 each</p>
                     </div>
                 </div>
             </div>

@@ -4,6 +4,7 @@ import { AuthContext } from '../context/auth.context';
 import { useContext } from 'react';
 import Modal from 'react-modal';
 import Post from '../components/post'
+import Footer from '../components/footer'
 import moment from 'moment';
 
 const Events = () => {
@@ -43,7 +44,7 @@ const Events = () => {
                 setError(true)
             } else {
                 const newEvent = res.data;
-                setEvents(prevEvents => [...prevEvents, newEvent]);
+                setEvents(prevEvents => [newEvent,...prevEvents]);
                 closeModal()
                 setEventInput({
                     title: '',
@@ -90,8 +91,9 @@ const Events = () => {
             })
             if (res) {
                 const gotEvents = res.data
+                const sortedEvents = gotEvents.sort((a, b) => new Date(b.day) - new Date(a.day));
                 console.log(res.data, 'events')
-                setEvents(gotEvents)
+                setEvents(sortedEvents)
             }
         } catch (err) {
             console.log(err)
@@ -148,6 +150,7 @@ const Events = () => {
                     })}
                 </div>
             </div>
+            <Footer/>
         </div>
     );
 }
