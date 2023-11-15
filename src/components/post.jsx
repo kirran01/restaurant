@@ -84,7 +84,7 @@ const Post = ({ post, events, setEvents }) => {
     }
     return (
         <div>
-            <div className="border-2 border-sky-400 rounded-lg m-10 p-10 pt-5 flex flex-col">
+            <divd className="border-2 border-sky-400 rounded-lg m-10 p-6 pt-5 flex flex-col">
                 {isLoggedIn && <div className="flex items-center justify-center md:justify-start lg:justify-start md:items-start lg:items-start">
                     <button className="mx-2 p-2 text-sm border-2 rounded-lg" onClick={openModal}>Edit</button>
                     <button className="mx-2 p-2 text-sm border-2 rounded-lg" onClick={deletePost}>Delete</button>
@@ -92,7 +92,7 @@ const Post = ({ post, events, setEvents }) => {
                 <p className="text-lg font-bold p-2 text-center">{post.title}</p>
                 <p className="p-2 text-center">{formatDate(post.day)}</p>
                 <p className="p-2">{post.description}</p>
-            </div>
+            </divd>
             <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={closeModal}

@@ -44,7 +44,7 @@ const Events = () => {
                 setError(true)
             } else {
                 const newEvent = res.data;
-                setEvents(prevEvents => [newEvent,...prevEvents]);
+                setEvents(prevEvents => [newEvent, ...prevEvents]);
                 closeModal()
                 setEventInput({
                     title: '',
@@ -141,16 +141,21 @@ const Events = () => {
                     </form>
                 </div>
             </Modal>
-            <div>
-                <div>
-                    {events.map(e => {
-                        return (<>
+            <div className="flex flex-col items-center justify-center h-screen">
+                {events.length > 0 ? (
+                    <div className="w-full">
+                        {events.map(e => (
                             <Post key={e._id} post={e} events={events} setEvents={setEvents} />
-                        </>)
-                    })}
-                </div>
+                        ))}
+                    </div>
+                ) : (
+                    <div className="flex flex-col items-center">
+                        <p className="lg:text-lg md:text-lg text-md">No events yet...</p>
+                        <p className="lg:text-lg md:text-lg text-md">Check us again later!</p>
+                    </div>
+                )}
             </div>
-            <Footer/>
+            <Footer />
         </div>
     );
 }
