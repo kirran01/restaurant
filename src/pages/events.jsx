@@ -34,6 +34,10 @@ const Events = () => {
             if (res.data.errors) {
                 setError(true)
             } else {
+                const newEvent = res.data;
+
+                // Update the events state
+                setEvents(prevEvents => [...prevEvents, newEvent]);
                 closeModal()
                 setEventInput({
                     title: '',
@@ -76,6 +80,8 @@ const Events = () => {
             if (res) {
                 const gotEvents = res.data
                 setEvents(gotEvents)
+                console.log(res.data, 'rd')
+
             }
         } catch (err) {
             console.log(err)
@@ -83,7 +89,7 @@ const Events = () => {
     }
     useEffect(() => {
         getEvents()
-    }, [events])
+    }, [])
     //j.a
     return (
         <div className="pt-14 font-serif bg-orange-100">
@@ -91,7 +97,7 @@ const Events = () => {
                 <p className="text-md font-bold lg:text-3xl text-center my-4">Events</p>
                 <p className="text-center text-sm lg:text-sm my-2">Join us for some great times and even better food...</p>
                 {isLoggedIn &&
-                    <button className="text-center bg-black hover:bg-slate-800 text-white p-2 m-2 mt-4 rounded-lg" type="" onClick={openModal}>New</button>
+                    <button className="text-center bg-black hover:bg-slate-800 text-white p-2 m-2 mt-4 rounded-lg" onClick={openModal}>New</button>
                 }
             </div>
             <Modal
@@ -101,9 +107,10 @@ const Events = () => {
             >
                 <div className="flex font-serif flex-col items-center">
                     <div>
-                        {/* conditionally render either of these */}
-                        <p className="text-lg">Create an Event</p>
-                        <p className="text-lg">Field(s) are missing</p>
+                        {error ?
+                            <p className="text-lg">Field(s) are missing</p>
+                            : <p className="text-lg">Create an Event</p>
+                        }
                     </div>
                     <form className="flex flex-col items-center" action="" onSubmit={submitEvent}>
                         <div className="flex flex-col items-center m-2">
