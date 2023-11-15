@@ -4,7 +4,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
 
-const Post = ({ post }) => {
+const Post = ({ post, events, setEvents }) => {
     const { user, isLoggedIn, logOut } = useContext(AuthContext);
     const [modalIsOpen, setIsOpen] = useState(false);
     function openModal() {
@@ -26,7 +26,8 @@ const Post = ({ post }) => {
                 }
             })
             if (res) {
-                console.log('deleted')
+                const filteredForDelete = events.filter(e => e._id !== post._id)
+                setEvents(filteredForDelete)
             }
         } catch (err) {
             console.log(err)

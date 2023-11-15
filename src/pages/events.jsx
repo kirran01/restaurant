@@ -133,7 +133,7 @@ const Events = () => {
                 <div>
                     {events.map(e => {
                         return (<>
-                            <Post key={e.id} post={e} />
+                            <Post key={e._id} post={e} events={events} setEvents={setEvents} />
                         </>)
                     })}
                 </div>
