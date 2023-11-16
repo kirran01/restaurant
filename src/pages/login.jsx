@@ -38,15 +38,17 @@ const Login = () => {
     };
     return (
         <div className='h-screen flex flex-col justify-evenly content-center items-center bg-cyan-50'>
-            {isLoading &&
+            {errorMessage !== '' &&
                 <div>
-                    <p>Loading...</p>
-                </div>}
-            {errorMessage !== '' && <div>
-                <p>{errorMessage}</p>
-            </div>}
+                    <p>{errorMessage}</p>
+                </div>
+            }
             <div className='bg-white flex flex-col items-center rounded-lg drop-shadow-lg'>
-                <p className='m-5 text-lg'>Log In</p>
+                {!isLoading ?
+                    <p className='m-5 text-lg'>Log In</p>
+                    :
+                    <p className='m-5 text-lg'>Loading...</p>
+                }
                 <form className='m-5 flex flex-col items-center'>
                     <label className='m-2'>Username</label>
                     <input className='border-gray border-2 rounded-md m-2' onChange={handleLoginInput} value={loginInput.loginName} name="loginName" type="text" />
