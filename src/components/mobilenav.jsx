@@ -13,8 +13,7 @@ const Mobilenav = ({ closeModal }) => {
                     <Link className='m-5' to={'/events'} onClick={closeModal}>Events</Link>
                     {isLoggedIn &&
                         <Link onClick={() => {
-                            logOut();
-                            // Call your second function here
+                            logOut()
                             closeModal()
                         }} className='lg:text-white md:text-white cursor-pointer m-5'>
                             Log Out

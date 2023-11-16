@@ -24,13 +24,9 @@ const Events = () => {
         e.preventDefault()
         try {
             const date = new Date(eventInput.day);
-
-            // Add one day
             date.setDate(date.getDate() + 1);
-
-            // Format the date back to 'YYYY-MM-DD'
             const adjustedDate = date.toISOString().split('T')[0];
-            const res = await axios.post(`http://localhost:3000/events/create-event`, {
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/events/create-event`, {
                 title: eventInput.title,
                 description: eventInput.description,
                 day: adjustedDate
@@ -53,6 +49,7 @@ const Events = () => {
                 })
             }
         } catch (err) {
+            setError(true)
             console.log(err)
         }
     }
@@ -84,7 +81,7 @@ const Events = () => {
     }
     const getEvents = async () => {
         try {
-            const res = await axios.get(`http://localhost:3000/events/get-events`, {
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/events/get-events`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('authToken')}`
                 }
@@ -102,7 +99,6 @@ const Events = () => {
     useEffect(() => {
         getEvents()
     }, [])
-    //j.a
     return (
         <div className="pt-14 font-serif bg-orange-100">
             <div className="bg-rose-200 p-4 py-10 flex flex-col items-center">
@@ -112,8 +108,7 @@ const Events = () => {
                     <button className="text-center bg-black hover:bg-slate-800 text-white p-2 m-2 mt-4 rounded-lg" onClick={openModal}>New</button>
                 }
             </div>
-            {/* conditionally make height full depending on whether the event array is empty. */}
-            <div className={`${events.length <=1 ? 'h-screen' : ''} flex flex-col items-center justify-center`}>
+            <div className={`${events.length <= 2 ? 'h-screen' : ''} flex flex-col items-center justify-center`}>
                 {events.length > 0 ? (
                     <div className="w-full">
                         {events.map(e => (
