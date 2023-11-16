@@ -108,7 +108,7 @@ const Events = () => {
                     <button className="text-center bg-black hover:bg-slate-800 text-white p-2 m-2 mt-4 rounded-lg" onClick={openModal}>New</button>
                 }
             </div>
-            <div className={`${events.length <= 2 ? 'h-screen' : ''} flex flex-col items-center justify-center`}>
+            <div className={`${events.length <= 1 ? 'h-screen' : ''} flex flex-col items-center justify-center`}>
                 {events.length > 0 ? (
                     <div className="w-full">
                         {events.map(e => (
