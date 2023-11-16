@@ -24,7 +24,7 @@ const Events = () => {
     const submitEvent = async (e) => {
         e.preventDefault()
         try {
-            setIsLoading(true);
+
             const date = new Date(eventInput.day);
             date.setDate(date.getDate() + 1);
             const adjustedDate = date.toISOString().split('T')[0];
@@ -53,8 +53,6 @@ const Events = () => {
         } catch (err) {
             setError(true)
             console.log(err)
-        } finally {
-            setIsLoading(false);
         }
     }
     function openModal() {
@@ -85,6 +83,7 @@ const Events = () => {
     }
     const getEvents = async () => {
         try {
+            setIsLoading(true);
             const res = await axios.get(`${import.meta.env.VITE_API_URL}/events/get-events`, {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('authToken')}`
@@ -98,6 +97,8 @@ const Events = () => {
             }
         } catch (err) {
             console.log(err)
+        } finally {
+            setIsLoading(false);
         }
     }
     useEffect(() => {
@@ -112,7 +113,7 @@ const Events = () => {
                     <button className="text-center bg-black hover:bg-slate-800 text-white p-2 m-2 mt-4 rounded-lg" onClick={openModal}>New</button>
                 }
             </div>
-            <div className={`${events.length <= 1 && !isLoading ? 'h-screen' : ''} flex flex-col items-center justify-center`}>
+            <div className={`${events.length <= 1 ? 'h-screen' : ''} flex flex-col items-center justify-center`}>
                 {isLoading ? (
                     <div>Loading events...</div>
                 ) : events.length > 0 ? (
