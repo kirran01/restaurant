@@ -8,6 +8,7 @@ import Footer from '../components/footer'
 import moment from 'moment';
 
 const Events = () => {
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(false)
     const [events, setEvents] = useState([])
     const [modalIsOpen, setIsOpen] = useState(false);
@@ -23,6 +24,7 @@ const Events = () => {
     const submitEvent = async (e) => {
         e.preventDefault()
         try {
+            setIsLoading(true);
             const date = new Date(eventInput.day);
             date.setDate(date.getDate() + 1);
             const adjustedDate = date.toISOString().split('T')[0];
@@ -51,6 +53,8 @@ const Events = () => {
         } catch (err) {
             setError(true)
             console.log(err)
+        } finally {
+            setIsLoading(false);
         }
     }
     function openModal() {
@@ -108,8 +112,10 @@ const Events = () => {
                     <button className="text-center bg-black hover:bg-slate-800 text-white p-2 m-2 mt-4 rounded-lg" onClick={openModal}>New</button>
                 }
             </div>
-            <div className={`${events.length <= 1 ? 'h-screen' : ''} flex flex-col items-center justify-center`}>
-                {events.length > 0 ? (
+            <div className={`${events.length <= 1 && !isLoading ? 'h-screen' : ''} flex flex-col items-center justify-center`}>
+                {isLoading ? (
+                    <div>Loading events...</div>
+                ) : events.length > 0 ? (
                     <div className="w-full">
                         {events.map(e => (
                             <Post key={e._id} post={e} events={events} setEvents={setEvents} />
