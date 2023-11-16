@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom'
 
 const Nav = () => {
-    const {user, isLoggedIn, logOut } = useContext(AuthContext);
+    const { user, isLoggedIn, logOut } = useContext(AuthContext);
     const [modalIsOpen, setIsOpen] = useState(false);
     function openModal() {
         setIsOpen(true);
@@ -38,9 +38,7 @@ const Nav = () => {
                         <MenuIcon />
                     </li>
                 </div>
-
                 <div className='hidden lg:flex md:flex'>
-
                     <Link className='mx-2' to={'/menu'}>
                         Menu
                     </Link>
