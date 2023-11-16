@@ -91,7 +91,7 @@ const Events = () => {
             })
             if (res) {
                 const gotEvents = res.data
-                const sortedEvents = gotEvents.sort((a, b) => new Date(b.day) - new Date(a.day));
+                const sortedEvents = gotEvents.sort((a, b) => new Date(a.day) - new Date(b.day));
                 console.log(res.data, 'events')
                 setEvents(sortedEvents)
             }
@@ -106,11 +106,26 @@ const Events = () => {
     return (
         <div className="pt-14 font-serif bg-orange-100">
             <div className="bg-rose-200 p-4 py-10 flex flex-col items-center">
-                <p className="text-md font-bold lg:text-3xl text-center my-4">Events</p>
+                <p className="text-lg font-bold lg:text-3xl md:lg:text-3xl text-center my-4">Events</p>
                 <p className="text-center text-sm lg:text-sm my-2">Join us for some great times and even better food...</p>
                 {isLoggedIn &&
                     <button className="text-center bg-black hover:bg-slate-800 text-white p-2 m-2 mt-4 rounded-lg" onClick={openModal}>New</button>
                 }
+            </div>
+            {/* conditionally make height full depending on whether the event array is empty. */}
+            <div className={`${events.length <=1 ? 'h-screen' : ''} flex flex-col items-center justify-center`}>
+                {events.length > 0 ? (
+                    <div className="w-full">
+                        {events.map(e => (
+                            <Post key={e._id} post={e} events={events} setEvents={setEvents} />
+                        ))}
+                    </div>
+                ) : (
+                    <div className="flex flex-col items-center">
+                        <p className="lg:text-lg md:text-lg text-md">No events yet...</p>
+                        <p className="lg:text-lg md:text-lg text-md">Check us again later!</p>
+                    </div>
+                )}
             </div>
             <Modal
                 isOpen={modalIsOpen}
@@ -141,20 +156,6 @@ const Events = () => {
                     </form>
                 </div>
             </Modal>
-            <div className="flex flex-col items-center justify-center h-screen">
-                {events.length > 0 ? (
-                    <div className="w-full">
-                        {events.map(e => (
-                            <Post key={e._id} post={e} events={events} setEvents={setEvents} />
-                        ))}
-                    </div>
-                ) : (
-                    <div className="flex flex-col items-center">
-                        <p className="lg:text-lg md:text-lg text-md">No events yet...</p>
-                        <p className="lg:text-lg md:text-lg text-md">Check us again later!</p>
-                    </div>
-                )}
-            </div>
             <Footer />
         </div>
     );
