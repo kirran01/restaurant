@@ -40,7 +40,7 @@ const Home = () => {
                         <p>12pm to 6:30pm</p>
                         <div className='flex my-1'>
                             <a href="https://www.instagram.com/dre_flavors1174/" target='none'><img src={IG} alt="ig" className='h-8 mx-1' /></a>
-                            <a href="https://www.facebook.com/profile.php?id=100088988448536" target='none'><img src={FB} alt="fb" className='h-8 mx-1' /></a>
+                            <a href="https://www.facebook.com/profile.php?id=100088988448536/" target='none'><img src={FB} alt="fb" className='h-8 mx-1' /></a>
                         </div>
                     </div>
                     <div className='p-4'>

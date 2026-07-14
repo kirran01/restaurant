@@ -4,9 +4,10 @@ import Foot from '../components/footer'
 const Menu = () => {
     return (
         <div className="pt-14 font-serif bg-lime-100">
-            <div className="bg-amber-200 p-4 py-10">
+            <div className="bg-amber-200 p-4 py-10 flex flex-col items-center">
                 <p className="text-lg font-bold lg:text-3xl md:text-3xl text-center my-4">Menu</p>
                 <p className="text-center text-sm lg:text-sm my-2">explore our creations...</p>
+                <button className="text-center bg-black hover:bg-slate-800 text-white p-2 m-2 mt-4 rounded-lg"onClick={console.log("menu item button")}>New Item</button>
             </div>
             <div className="flex flex-col text-center py-4">
                 <div className="flex flex-col text-center">
