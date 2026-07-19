@@ -1,14 +1,30 @@
 import React, { useState } from 'react';
 
-const FoodItem = () => {
+const FoodItem = ({ foodItem, menuItems, setMenuItems }) => {
     const foodInput = useState[{
-        foodPrice: '',
-        foodName:''
+        foodName: '',
+        foodPrice: 0,
+        foodCategory: ''
     }]
+    const deleteFoodItem = async (e) => {
+        try {
+
+        } catch (err) {
+
+        }
+    }
+    const editFoodItem = async (e) => {
+        try {
+
+        } catch (err) {
+
+        }
+    }
     return (
-        <div className='flex flex-col border-2'>
-            <p>Name</p>
-            <p>Cost</p>
+        <div className='flex flex-col border-2 border-black'>
+            <p>{foodItem.foodName}</p>
+            <p>{foodItem.foodPrice}</p>
+            <p>{foodItem.foodDescription}</p>
         </div>
     );
 }

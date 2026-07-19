@@ -1,7 +1,8 @@
 import Foot from '../components/footer'
 import Modal from 'react-modal';
-import foodItem from '../components/foodItem'
-import { useState } from 'react';
+import FoodItem from '../components/foodItem'
+import { useState, useEffect } from 'react';
+import { Padding } from '@mui/icons-material';
 
 
 const Menu = () => {
@@ -10,15 +11,28 @@ const Menu = () => {
     const [error, setError] = useState(false)
     const [foodInput, setFoodInput] = useState({
         foodName: '',
-        foodPrice: '',
+        foodPrice:0,
+        foodDescription: '',
         foodCategory: ''
     })
     const handleFoodInput = (e) => {
         setFoodInput({ ...foodInput, [e.target.name]: e.target.value })
     }
+    const addFoodItem = async ()=>{
+        try{
+        }catch(err){
+        }
+    const getFoodItems = async () =>{
+        try{
+        }catch (err){
+
+        }
+    }
+    }
     const customStyles = {
         content: {
             borderRadius: '10px',
+            padding:'25px',
             top: '50%',
             left: '50%',
             right: 'auto',
@@ -45,8 +59,8 @@ const Menu = () => {
                 <p className="text-center text-sm lg:text-sm my-2">explore our creations...</p>
                 <button className="text-center bg-black hover:bg-slate-800 text-white p-2 m-2 mt-4 rounded-lg" onClick={openModal}>New Item</button>
             </div>
-                <div className="flex flex-col text-center">
-                    
+            <div className="flex flex-col text-center">
+            <FoodItem/>
             </div>
             <Modal
                 isOpen={modalIsOpen}
@@ -61,11 +75,20 @@ const Menu = () => {
                         </div>
                         <div className='flex flex-col items-center'>
                             <label>Food price</label>
-                            <input type="text" value={foodInput.foodPrice} className='border-2' onChange={handleFoodInput} name={'foodPrice'} />
+                            <input type="number" value={foodInput.foodPrice} className='border-2' onChange={handleFoodInput} name={'foodPrice'} />
+                        </div>
+                        <div className='flex flex-col items-center'>
+                            <label >Food Description</label>
+                            <textarea type="text" name={'foodDescription'}id=""></textarea>
                         </div>
                         <div className='flex flex-col items-center'>
                             <label >Category</label>
-                            <input type="text" value={foodInput.foodCategory} className='border-2' onChange={handleFoodInput} name={'foodCategory'} />
+                           <select className='border-r-2' name="" id="">
+                            <option value="Appetizer">Appetizer</option>
+                            <option value="Main">Main</option>
+                            <option value="Dessert">Dessert</option>
+                           </select>
+                            {/* <input type="text" value={foodInput.foodCategory} className='border-2' onChange={handleFoodInput} name={'foodCategory'} /> */}
                         </div>
                         <button className='border-2 p-2 m-2'>Submit</button>
                     </form>
