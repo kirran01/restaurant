@@ -20,14 +20,16 @@ const Menu = () => {
     const handleFoodInput = (e) => {
         setFoodInput({ ...foodInput, [e.target.name]: e.target.value })
     }
-    const addFoodItem = async () => {
+    const addFoodItem = async (e) => {
         e.preventDefault()
+        console.log('food submitted')
+        console.log(foodInput)
         try {
             const res = await axios.post(`${import.meta.env.VITE_API_URL}/food/create-food`, {
-                foodName: foodInput.foodName,
-                foodPrice: foodInput.foodPrice,
-                foodDescription: foodInput.foodDescription,
-                foodCategory: foodInput.foodCategory
+                name: foodInput.foodName,
+                price: foodInput.foodPrice,
+                description: foodInput.foodDescription,
+                category: foodInput.foodCategory
             },
                 {
                     headers: {
@@ -49,7 +51,7 @@ const Menu = () => {
             }
         } catch (err) {
             setError(true)
-            console.log(err, "error")
+            console.log(err.response?.data || err);
         }
     }
     const getFoodItems = async () => {
@@ -75,6 +77,15 @@ const Menu = () => {
     useEffect(() => {
         getFoodItems()
     }, [])
+    const mainFood = menuItems.filter(
+        item => item.category === "Main"
+    );
+    const dessertFood = menuItems.filter(
+        item => item.category === "Dessert"
+    );
+    const appetizerFood = menuItems.filter(
+        item => item.category === "Appetizer"
+    )
     const customStyles = {
         content: {
             borderRadius: '10px',
@@ -106,7 +117,20 @@ const Menu = () => {
                 <button className="text-center bg-black hover:bg-slate-800 text-white p-2 m-2 mt-4 rounded-lg" onClick={openModal}>New Item</button>
             </div>
             <div className="flex flex-col text-center">
-                {menuItems.map(e => (
+                <p className='text-lg'>Appetizer</p>
+                {appetizerFood.map(e => (
+                    <FoodItem key={e._id} foodItem={e} menuItems={menuItems} setMenuItems={setMenuItems} />
+                ))}
+            </div>
+            <div className="flex flex-col text-center">
+                <p className='text-lg'>Main</p>
+                {mainFood.map(e => (
+                    <FoodItem key={e._id} foodItem={e} menuItems={menuItems} setMenuItems={setMenuItems} />
+                ))}
+            </div>
+            <div className="flex flex-col text-center">
+                <p className='text-lg'>Dessert</p>
+                {dessertFood.map(e => (
                     <FoodItem key={e._id} foodItem={e} menuItems={menuItems} setMenuItems={setMenuItems} />
                 ))}
             </div>
@@ -116,7 +140,7 @@ const Menu = () => {
                 style={customStyles}
             >
                 <div className='flex font-serif flex-col items-center'>
-                    <form action="" className='flex flex-col items-center'>
+                    <form action="" onSubmit={addFoodItem} className='flex flex-col items-center'>
                         <div className='flex flex-col items-center'>
                             <label>Food name</label>
                             <input type="text" onChange={handleFoodInput} value={foodInput.foodName} name={"foodName"} className='border-2' />
@@ -127,19 +151,27 @@ const Menu = () => {
                         </div>
                         <div className='flex flex-col items-center'>
                             <label>Food Description</label>
-                            <textarea type="text" name={'foodDescription'} value={foodInput.foodDescription} id=""></textarea>
+                            <textarea type="text" name={'foodDescription'} value={foodInput.foodDescription} onChange={handleFoodInput} id=""></textarea>
                         </div>
                         <div className='flex flex-col items-center'>
                             <label >Category</label>
-                            <select className='border-r-2' name="category" id="" value={foodInput.foodCategory}
+                            <select className='border-r-2' name="foodCategory" value={foodInput.foodCategory}
                                 onChange={handleFoodInput}>
+                                <option value="" disabled>
+                                    Select Category
+                                </option>
                                 <option value="Appetizer">Appetizer</option>
                                 <option value="Main">Main</option>
                                 <option value="Dessert">Dessert</option>
                             </select>
                         </div>
-                        <button className='border-2 p-2 m-2'>Submit</button>
+                        <button type='submit' className='border-2 p-2 m-2'>Submit</button>
                     </form>
+                    {error && (
+                        <p className="text-red-600">
+                            Could not create food item.
+                        </p>
+                    )}
                 </div>
             </Modal>
             <div className='pt-4'>
