@@ -24,7 +24,6 @@ const Events = () => {
     const submitEvent = async (e) => {
         e.preventDefault()
         try {
-
             const date = new Date(eventInput.day);
             date.setDate(date.getDate() + 1);
             const adjustedDate = date.toISOString().split('T')[0];

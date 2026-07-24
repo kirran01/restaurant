@@ -1,38 +1,84 @@
 import Foot from '../components/footer'
 import Modal from 'react-modal';
+import axios from 'axios';
 import FoodItem from '../components/foodItem'
 import { useState, useEffect } from 'react';
 import { Padding } from '@mui/icons-material';
 
 
 const Menu = () => {
+    const [isLoading, setIsLoading] = useState(false);
     const [menuItems, setMenuItems] = useState([])
     const [modalIsOpen, setIsOpen] = useState(false);
     const [error, setError] = useState(false)
     const [foodInput, setFoodInput] = useState({
         foodName: '',
-        foodPrice:0,
+        foodPrice: 0,
         foodDescription: '',
         foodCategory: ''
     })
     const handleFoodInput = (e) => {
         setFoodInput({ ...foodInput, [e.target.name]: e.target.value })
     }
-    const addFoodItem = async ()=>{
-        try{
-        }catch(err){
+    const addFoodItem = async () => {
+        e.preventDefault()
+        try {
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/food/create-food`, {
+                foodName: foodInput.foodName,
+                foodPrice: foodInput.foodPrice,
+                foodDescription: foodInput.foodDescription,
+                foodCategory: foodInput.foodCategory
+            },
+                {
+                    headers: {
+                        authorization: `Bearer ${localStorage.getItem('authToken')}`
+                    }
+                })
+            if (res.data.errors) {
+                setError(true)
+            } else {
+                const newFood = res.data;
+                setMenuItems(prevFood => [newFood, ...prevFood])
+                closeModal()
+                setFoodInput({
+                    foodName: '',
+                    foodPrice: 0,
+                    foodDescription: '',
+                    foodCategory: ''
+                })
+            }
+        } catch (err) {
+            setError(true)
+            console.log(err, "error")
         }
-    const getFoodItems = async () =>{
-        try{
-        }catch (err){
+    }
+    const getFoodItems = async () => {
+        try {
+            setIsLoading(true)
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/food/get-food`, {
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem('authToken')}`
+                }
+            })
+            if (res) {
+                const gotFoodItems = res.data
+                setMenuItems(gotFoodItems)
+                console.log(res.data, 'food')
+            }
 
+        } catch (err) {
+            console.log(err)
+        } finally {
+            setIsLoading(false)
         }
     }
-    }
+    useEffect(() => {
+        getFoodItems()
+    }, [])
     const customStyles = {
         content: {
             borderRadius: '10px',
-            padding:'25px',
+            padding: '25px',
             top: '50%',
             left: '50%',
             right: 'auto',
@@ -53,14 +99,16 @@ const Menu = () => {
         })
     }
     return (
-        <div className="pt-14 font-serif bg-lime-100">
-            <div className="bg-amber-200 p-4 py-10 flex flex-col items-center">
+        <div className="pt-14 font-serif bg-amber-200">
+            <div className="bg-lime-100 p-4 py-10 flex flex-col items-center">
                 <p className="text-lg font-bold lg:text-3xl md:text-3xl text-center my-4">Menu</p>
                 <p className="text-center text-sm lg:text-sm my-2">explore our creations...</p>
                 <button className="text-center bg-black hover:bg-slate-800 text-white p-2 m-2 mt-4 rounded-lg" onClick={openModal}>New Item</button>
             </div>
             <div className="flex flex-col text-center">
-            <FoodItem/>
+                {menuItems.map(e => (
+                    <FoodItem key={e._id} foodItem={e} menuItems={menuItems} setMenuItems={setMenuItems} />
+                ))}
             </div>
             <Modal
                 isOpen={modalIsOpen}
@@ -71,24 +119,24 @@ const Menu = () => {
                     <form action="" className='flex flex-col items-center'>
                         <div className='flex flex-col items-center'>
                             <label>Food name</label>
-                            <input type="text"  onChange={handleFoodInput} value={foodInput.foodName} name={"foodName"} className='border-2' />
+                            <input type="text" onChange={handleFoodInput} value={foodInput.foodName} name={"foodName"} className='border-2' />
                         </div>
                         <div className='flex flex-col items-center'>
                             <label>Food price</label>
                             <input type="number" value={foodInput.foodPrice} className='border-2' onChange={handleFoodInput} name={'foodPrice'} />
                         </div>
                         <div className='flex flex-col items-center'>
-                            <label >Food Description</label>
-                            <textarea type="text" name={'foodDescription'}id=""></textarea>
+                            <label>Food Description</label>
+                            <textarea type="text" name={'foodDescription'} value={foodInput.foodDescription} id=""></textarea>
                         </div>
                         <div className='flex flex-col items-center'>
                             <label >Category</label>
-                           <select className='border-r-2' name="" id="">
-                            <option value="Appetizer">Appetizer</option>
-                            <option value="Main">Main</option>
-                            <option value="Dessert">Dessert</option>
-                           </select>
-                            {/* <input type="text" value={foodInput.foodCategory} className='border-2' onChange={handleFoodInput} name={'foodCategory'} /> */}
+                            <select className='border-r-2' name="category" id="" value={foodInput.foodCategory}
+                                onChange={handleFoodInput}>
+                                <option value="Appetizer">Appetizer</option>
+                                <option value="Main">Main</option>
+                                <option value="Dessert">Dessert</option>
+                            </select>
                         </div>
                         <button className='border-2 p-2 m-2'>Submit</button>
                     </form>
