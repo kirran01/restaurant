@@ -22,8 +22,6 @@ const Menu = () => {
     }
     const addFoodItem = async (e) => {
         e.preventDefault()
-        console.log('food submitted')
-        console.log(foodInput)
         try {
             const res = await axios.post(`${import.meta.env.VITE_API_URL}/food/create-food`, {
                 name: foodInput.foodName,
@@ -141,21 +139,22 @@ const Menu = () => {
             >
                 <div className='flex font-serif flex-col items-center'>
                     <form action="" onSubmit={addFoodItem} className='flex flex-col items-center'>
+                        <p className='text-lg p-2'>Add a new Food</p>
                         <div className='flex flex-col items-center'>
-                            <label>Food name</label>
+                            <label>Name</label>
                             <input type="text" onChange={handleFoodInput} value={foodInput.foodName} name={"foodName"} className='border-2' />
                         </div>
                         <div className='flex flex-col items-center'>
-                            <label>Food price</label>
-                            <input type="number" value={foodInput.foodPrice} className='border-2' onChange={handleFoodInput} name={'foodPrice'} />
+                            <label>Price</label>
+                            <input type="number" min="0" step="1" value={foodInput.foodPrice} className='border-2' onChange={handleFoodInput} name={'foodPrice'} />
                         </div>
                         <div className='flex flex-col items-center'>
-                            <label>Food Description</label>
-                            <textarea type="text" name={'foodDescription'} value={foodInput.foodDescription} onChange={handleFoodInput} id=""></textarea>
+                            <label>Description</label>
+                            <textarea type="text" className="rounded-md border-2 border-blue-300" name={'foodDescription'} value={foodInput.foodDescription} onChange={handleFoodInput} id=""></textarea>
                         </div>
                         <div className='flex flex-col items-center'>
                             <label >Category</label>
-                            <select className='border-r-2' name="foodCategory" value={foodInput.foodCategory}
+                            <select className='border-2 p-2 rounded-md border-blue-300 bg-white text-lg' name="foodCategory" value={foodInput.foodCategory}
                                 onChange={handleFoodInput}>
                                 <option value="" disabled>
                                     Select Category
@@ -165,7 +164,7 @@ const Menu = () => {
                                 <option value="Dessert">Dessert</option>
                             </select>
                         </div>
-                        <button type='submit' className='border-2 p-2 m-2'>Submit</button>
+                        <button type='submit' className='border-2 border-slate bg-cyan-800 hover:bg-cyan-700 p-2 m-5 text-white rounded-md'>Submit</button>
                     </form>
                     {error && (
                         <p className="text-red-600">
