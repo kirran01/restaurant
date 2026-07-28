@@ -6,12 +6,12 @@ import { Category } from '@mui/icons-material';
 
 
 const FoodItem = ({ foodItem, menuItems, setMenuItems }) => {
-    const [foodInput, setFoodInput] = useState[{
+    const [foodInput, setFoodInput] = useState({
         name: foodItem.foodName,
         price: foodItem.foodPrice,
         category: foodItem.foodCategory,
         description: foodItem.foodDescription
-    }]
+    })
     const [modalIsOpen, setIsOpen] = useState(false);
     const handleFoodInput = (e) => {
         setFoodInput({ ...foodInput, [e.target.name]: e.target.value })
@@ -50,6 +50,7 @@ const FoodItem = ({ foodItem, menuItems, setMenuItems }) => {
         }
     }
     const editFoodItem = async (e) => {
+        console.log('edit')
         e.preventDefault()
         try {
             const res = await axios.put(`${import.meta.env.VITE_API_URL}/food/update-food/${foodItem._id}`, {
@@ -85,7 +86,7 @@ const FoodItem = ({ foodItem, menuItems, setMenuItems }) => {
                     <p>{foodItem.price}</p>
                     <p>{foodItem.description}</p>
                     <button onClick={deleteFoodItem} className='border-2 p-2 rounded-md m-2 border-black bg-blue-300'>delete</button>
-                    <button className='border-2 p-2 border-black m-2 rounded-md bg-blue-300'>edit</button>
+                    <button className='border-2 p-2 border-black m-2 rounded-md bg-blue-300' onClick={openModal}>edit</button>
                 </div>
             </div>
             <Modal
@@ -98,15 +99,15 @@ const FoodItem = ({ foodItem, menuItems, setMenuItems }) => {
                         <p className='text-lg p-2'>Edit Food</p>
                         <div className='flex flex-col items-center'>
                             <label>Name</label>
-                            <input type="text" onChange={handleFoodInput} value={foodInput.name} name={"foodName"} className='border-2' />
+                            <input type="text" onChange={handleFoodInput} value={foodInput.name} name={"name"} className='border-2' ></input>
                         </div>
                         <div className='flex flex-col items-center'>
                             <label>Price</label>
-                            <input type="number" min="0" step="1" value={foodInput.price} className='border-2' onChange={handleFoodInput} name={'foodPrice'} />
+                            <input type="number" min="0" step="1" value={foodInput.price} className='border-2' onChange={handleFoodInput} name={'price'}></input>
                         </div>
                         <div className='flex flex-col items-center'>
                             <label>Description</label>
-                            <textarea type="text" className="rounded-md border-2 border-blue-300" name={'foodDescription'} value={foodInput.description} onChange={handleFoodInput} id=""></textarea>
+                            <textarea type="text" className="rounded-md border-2 border-blue-300" name={'description'} value={foodInput.description} onChange={handleFoodInput} id=""></textarea>
                         </div>
                         <div className='flex flex-col items-center'>
                             <label >Category</label>
@@ -122,11 +123,6 @@ const FoodItem = ({ foodItem, menuItems, setMenuItems }) => {
                         </div>
                         <button type='submit' className='border-2 border-slate bg-cyan-800 hover:bg-cyan-700 p-2 m-5 text-white rounded-md'>Submit</button>
                     </form>
-                    {error && (
-                        <p className="text-red-600">
-                            Could not edit food item.
-                        </p>
-                    )}
                 </div>
             </Modal>
         </div>
