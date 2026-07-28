@@ -7,10 +7,10 @@ import { Category } from '@mui/icons-material';
 
 const FoodItem = ({ foodItem, menuItems, setMenuItems }) => {
     const [foodInput, setFoodInput] = useState({
-        name: foodItem.foodName,
-        price: foodItem.foodPrice,
-        category: foodItem.foodCategory,
-        description: foodItem.foodDescription
+        name: foodItem.name || "",
+        price: foodItem.price || "",
+        category: foodItem.category || "",
+        description: foodItem.description || ""
     })
     const [modalIsOpen, setIsOpen] = useState(false);
     const handleFoodInput = (e) => {
@@ -111,7 +111,7 @@ const FoodItem = ({ foodItem, menuItems, setMenuItems }) => {
                         </div>
                         <div className='flex flex-col items-center'>
                             <label >Category</label>
-                            <select className='border-2 p-2 rounded-md border-blue-300 bg-white text-lg' name="foodCategory" value={foodInput.category}
+                            <select className='border-2 p-2 rounded-md border-blue-300 bg-white text-lg' name="category" value={foodInput.category}
                                 onChange={handleFoodInput}>
                                 <option value="" disabled>
                                     Select Category
